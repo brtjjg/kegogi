@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kegogi Medicare – Admin Panel</title>
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a4b7a;
+            --primary-light: #1a6da3;
+            --primary-dark: #063255;
+            --secondary: #2d9c7c;
+            --secondary-light: #3fb893;
+            --accent: #f39c12;
+            --danger: #e74c3c;
+            --warning: #f1c40f;
+            --bg-light: #f4f9fc;
+            --text-dark: #1e2b37;
+            --text-muted: #4a5b69;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: 0.3s ease;
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --sidebar-width: 260px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background: var(--secondary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: var(--white);
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: var(--text-dark);
+        }
+        .btn-warning:hover {
+            background: #d4ac0d;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+        .btn-outline-secondary:hover {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+        }
+
+        /* ---------- ADMIN LAYOUT ---------- */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 24px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-brand {
+            padding: 0 24px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 20px;
+        }
+        .sidebar-brand h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .sidebar-brand h2 span {
+            color: var(--secondary-light);
+        }
+        .sidebar-brand small {
+            display: block;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            font-weight: 300;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0 12px;
+        }
+        .sidebar-nav li {
+            margin-bottom: 4px;
+        }
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+        .sidebar-nav a i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .sidebar-nav a .badge {
+            margin-left: auto;
+            background: var(--secondary);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 50px;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 0 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 16px;
+        }
+        .sidebar-footer a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+        .sidebar-footer a:hover {
+            color: var(--white);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 24px 32px 40px;
+            min-height: 100vh;
+        }
+
+        /* TOP HEADER */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e8ef;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .top-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .top-header h1 small {
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-left: 12px;
+        }
+        .top-header .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .top-header .admin-user .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .top-header .admin-user span {
+            font-weight: 600;
+        }
+
+        /* STAT CARDS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .stat-card-admin {
+            background: var(--white);
+            padding: 20px 22px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .stat-card-admin .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(45, 156, 124, 0.12);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .stat-card-admin .stat-info h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .stat-card-admin .stat-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* SECTION CARDS */
+        .admin-section {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 28px;
+            margin-bottom: 32px;
+        }
+        .admin-section .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .admin-section .section-header h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .admin-section .section-header .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* TABLE */
+        .table-wrap {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        table th {
+            text-align: left;
+            padding: 12px 12px 12px 0;
+            border-bottom: 2px solid #e0e8ef;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        table td {
+            padding: 12px 12px 12px 0;
+            border-bottom: 1px solid #eef3f7;
+            vertical-align: middle;
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        table .actions-cell {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* FORM */
+        .admin-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 24px;
+        }
+        .admin-form .full-width {
+            grid-column: 1 / -1;
+        }
+        .admin-form label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .admin-form input,
+        .admin-form textarea,
+        .admin-form select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #dde7ef;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: var(--font);
+            transition: var(--transition);
+            background: var(--bg-light);
+        }
+        .admin-form input:focus,
+        .admin-form textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(45, 156, 124, 0.12);
+        }
+        .admin-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .admin-form .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 12px;
+            padding-top: 8px;
+        }
+
+        /* TOGGLE VISIBILITY */
+        .section-content {
+            display: block;
+        }
+        .section-content.hidden {
+            display: none;
+        }
+
+        /* LOGIN SCREEN */
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 20px;
+        }
+        .login-box {
+            background: var(--white);
+            padding: 48px 40px;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-box h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 4px;
+        }
+        .login-box p {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-size: 0.9rem;
+        }
+        .login-box .logo-mini {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .login-box .logo-mini span {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .login-box .logo-mini span small {
+            font-weight: 300;
+            color: var(--secondary);
+        }
+        .login-box label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #dde7ef;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            transition: var(--transition);
+        }
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(45, 156, 124, 0.12);
+        }
+        .login-box .btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+        }
+        .login-box .error-msg {
+            color: var(--danger);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            background: var(--white);
+            padding: 14px 24px;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid var(--secondary);
+            animation: slideUp 0.3s ease;
+            max-width: 380px;
+        }
+        .toast.error {
+            border-left-color: var(--danger);
+        }
+        .toast.warning {
+            border-left-color: var(--warning);
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MOBILE SIDEBAR TOGGLE */
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .sidebar-toggle {
+                display: block;
+            }
+            .admin-form {
+                grid-template-columns: 1fr;
+            }
+            .admin-form .full-width {
+                grid-column: 1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .top-header h1 {
+                font-size: 1.2rem;
+            }
+            .top-header h1 small {
+                display: block;
+                margin-left: 0;
+                font-size: 0.8rem;
+            }
+            .admin-section {
+                padding: 16px;
+            }
+            .login-box {
+                padding: 32px 24px;
+            }
+            .table-wrap table {
+                font-size: 0.8rem;
+            }
+            .table-wrap table th,
+            .table-wrap table td {
+                padding: 8px 8px 8px 0;
+            }
+            .admin-section .section-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .admin-section .section-header .actions {
+                justify-content: stretch;
+            }
+            .admin-section .section-header .actions .btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        /* ---------- SCROLLBAR ---------- */
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        /* ---------- HELPERS ---------- */
+        .text-muted {
+            color: var(--text-muted);
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-center {
+            align-items: center;
+            justify-content: center;
+        }
+        .gap-8 {
+            gap: 8px;
+        }
+        .gap-12 {
+            gap: 12px;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================ -->
+    <!-- LOGIN SCREEN (hidden when logged in) -->
+    <!-- ============================================================ -->
+    <div id="loginScreen" class="login-page">
+        <div class="login-box">
+            <div class="logo-mini">
+                <span>KEGOGI <small>MEDICARE</small></span>
+                <p style="font-size: 0.7rem; margin-top: -2px; color: var(--text-muted);">ADMIN PANEL</p>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to manage your hospital website</p>
+            <form id="loginForm">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" value="admin@kegogimedicare.co.ke" placeholder="admin@kegogimedicare.co.ke" required />
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" value="admin123" placeholder="••••••••" required />
+                <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+                <div id="loginError" class="error-msg">Invalid credentials. Please try again.</div>
+            </form>
+            <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 16px;">
+                <i class="fas fa-lock"></i> Demo: admin@kegogimedicare.co.ke / admin123
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ADMIN DASHBOARD (hidden until login) -->
+    <!-- ============================================================ -->
+    <div id="adminApp" style="display: none;">
+        <div class="admin-wrapper">
+
+            <!-- SIDEBAR -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-brand">
+                    <h2>KEGOGI <span>MEDICARE</span></h2>
+                    <small>Hospital Admin Panel</small>
+                </div>
+                <ul class="sidebar-nav">
+                    <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+                    <li><a href="#" data-section="services"><i class="fas fa-stethoscope"></i> Services <span class="badge" id="serviceCount">0</span></a></li>
+                    <li><a href="#" data-section="specialists"><i class="fas fa-user-md"></i> Specialists <span class="badge" id="specialistCount">0</span></a></li>
+                    <li><a href="#" data-section="commitment"><i class="fas fa-hand-holding-heart"></i> Commitment</a></li>
+                    <li><a href="#" data-section="gallery"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="#" data-section="contact"><i class="fas fa-address-card"></i> Contact Info</a></li>
+                    <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+                <div class="sidebar-footer">
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <main class="main-content">
+                <!-- TOP HEADER -->
+                <div class="top-header">
+                    <div>
+                        <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                        <h1 id="pageTitle">Dashboard <small>Overview</small></h1>
+                    </div>
+                    <div class="admin-user">
+                        <span>Admin</span>
+                        <div class="avatar">A</div>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- DASHBOARD SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-dashboard" class="section-content">
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card-admin">
+                            <div class="stat-icon"><i class="fas fa-stethoscope"></i></div>
+                            <div class="stat-info"><h4 id="statServices">0</h4><p>Services</p></div>
+                        </div>
+                        <div class="stat-card-admin">
+                            <div class="stat-icon"><i class="fas fa-user-md"></i></div>
+                            <div class="stat-info"><h4 id="statSpecialists">0</h4><p>Specialists</p></div>
+                        </div>
+                        <div class="stat-card-admin">
+                            <div class="stat-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                            <div class="stat-info"><h4 id="statCommitment">0</h4><p>Commitment Items</p></div>
+                        </div>
+                        <div class="stat-card-admin">
+                            <div class="stat-icon"><i class="fas fa-images"></i></div>
+                            <div class="stat-info"><h4 id="statGallery">0</h4><p>Gallery Images</p></div>
+                        </div>
+                    </div>
+                    <div class="admin-section">
+                        <div class="section-header"><h3>Quick Actions</h3></div>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <a href="#" class="btn btn-primary" data-section="services"><i class="fas fa-plus"></i> Manage Services</a>
+                            <a href="#" class="btn btn-primary" data-section="specialists"><i class="fas fa-plus"></i> Manage Specialists</a>
+                            <a href="#" class="btn btn-primary" data-section="gallery"><i class="fas fa-plus"></i> Manage Gallery</a>
+                        </div>
+                    </div>
+                    <div class="admin-section">
+                        <div class="section-header"><h3>System Status</h3></div>
+                        <p><i class="fas fa-check-circle" style="color: var(--secondary);"></i> All systems operational. Data stored locally (localStorage).</p>
+                        <p class="text-muted" style="font-size: 0.85rem; margin-top: 4px;">
+                            <i class="fas fa-info-circle"></i> To connect to a real backend, replace the <code>DataStore</code> functions with API calls.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SERVICES SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-services" class="section-content hidden">
+                    <div class="admin-section">
+                        <div class="section-header">
+                            <h3>All Services</h3>
+                            <div class="actions">
+                                <button class="btn btn-primary btn-sm" id="showAddServiceForm"><i class="fas fa-plus"></i> Add Service</button>
+                            </div>
+                        </div>
+                        <div id="serviceFormContainer" class="hidden" style="margin-bottom: 20px; padding: 20px; background: var(--bg-light); border-radius: var(--radius);">
+                            <h4 id="serviceFormTitle" style="margin-bottom: 12px;">Add New Service</h4>
+                            <form id="serviceForm" class="admin-form">
+                                <input type="hidden" id="serviceEditId" />
+                                <div class="full-width">
+                                    <label>Service Name *</label>
+                                    <input type="text" id="serviceName" placeholder="e.g. FREE Consultation" required />
+                                </div>
+                                <div class="full-width">
+                                    <label>Description</label>
+                                    <textarea id="serviceDesc" placeholder="Brief description"></textarea>
+                                </div>
+                                <div>
+                                    <label>Icon (FontAwesome class)</label>
+                                    <input type="text" id="serviceIcon" placeholder="fas fa-user-md" value="fas fa-heartbeat" />
+                                </div>
+                                <div>
+                                    <label>Featured Tag (optional)</label>
+                                    <input type="text" id="serviceTag" placeholder="Free, 24/7, Maternal Care" />
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="serviceSubmitBtn"><i class="fas fa-save"></i> Save Service</button>
+                                    <button type="button" class="btn btn-outline-secondary" id="cancelServiceForm">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>#</th><th>Icon</th><th>Name</th><th>Description</th><th>Tag</th><th>Actions</th></tr></thead>
+                                <tbody id="servicesTableBody"></tbody>
+                            </table>
+                        </div>
+                        <p id="noServicesMsg" class="text-muted" style="text-align:center; padding:20px 0;">No services added yet.</p>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SPECIALISTS SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-specialists" class="section-content hidden">
+                    <div class="admin-section">
+                        <div class="section-header">
+                            <h3>Specialists</h3>
+                            <div class="actions">
+                                <button class="btn btn-primary btn-sm" id="showAddSpecialistForm"><i class="fas fa-plus"></i> Add Specialist</button>
+                            </div>
+                        </div>
+                        <div id="specialistFormContainer" class="hidden" style="margin-bottom: 20px; padding: 20px; background: var(--bg-light); border-radius: var(--radius);">
+                            <h4 id="specialistFormTitle">Add New Specialist</h4>
+                            <form id="specialistForm" class="admin-form">
+                                <input type="hidden" id="specialistEditId" />
+                                <div class="full-width">
+                                    <label>Specialist Name *</label>
+                                    <input type="text" id="specialistName" placeholder="e.g. Pediatric Checkups" required />
+                                </div>
+                                <div class="full-width">
+                                    <label>Description</label>
+                                    <input type="text" id="specialistDesc" placeholder="e.g. Child health & development" />
+                                </div>
+                                <div>
+                                    <label>Icon (FontAwesome)</label>
+                                    <input type="text" id="specialistIcon" placeholder="fas fa-child" value="fas fa-user-md" />
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="specialistSubmitBtn"><i class="fas fa-save"></i> Save Specialist</button>
+                                    <button type="button" class="btn btn-outline-secondary" id="cancelSpecialistForm">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>#</th><th>Icon</th><th>Name</th><th>Description</th><th>Actions</th></tr></thead>
+                                <tbody id="specialistsTableBody"></tbody>
+                            </table>
+                        </div>
+                        <p id="noSpecialistsMsg" class="text-muted" style="text-align:center; padding:20px 0;">No specialists added yet.</p>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- COMMITMENT SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-commitment" class="section-content hidden">
+                    <div class="admin-section">
+                        <div class="section-header">
+                            <h3>Commitment Items</h3>
+                            <div class="actions">
+                                <button class="btn btn-primary btn-sm" id="showAddCommitmentForm"><i class="fas fa-plus"></i> Add Item</button>
+                            </div>
+                        </div>
+                        <div id="commitmentFormContainer" class="hidden" style="margin-bottom: 20px; padding: 20px; background: var(--bg-light); border-radius: var(--radius);">
+                            <h4 id="commitmentFormTitle">Add New Commitment</h4>
+                            <form id="commitmentForm" class="admin-form">
+                                <input type="hidden" id="commitmentEditId" />
+                                <div class="full-width">
+                                    <label>Title *</label>
+                                    <input type="text" id="commitmentTitle" placeholder="e.g. Respect & Dignity" required />
+                                </div>
+                                <div class="full-width">
+                                    <label>Description</label>
+                                    <textarea id="commitmentDesc" placeholder="Brief description"></textarea>
+                                </div>
+                                <div>
+                                    <label>Icon (FontAwesome)</label>
+                                    <input type="text" id="commitmentIcon" placeholder="fas fa-hand-holding-heart" value="fas fa-heart" />
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="commitmentSubmitBtn"><i class="fas fa-save"></i> Save Item</button>
+                                    <button type="button" class="btn btn-outline-secondary" id="cancelCommitmentForm">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>#</th><th>Icon</th><th>Title</th><th>Description</th><th>Actions</th></tr></thead>
+                                <tbody id="commitmentTableBody"></tbody>
+                            </table>
+                        </div>
+                        <p id="noCommitmentMsg" class="text-muted" style="text-align:center; padding:20px 0;">No commitment items added yet.</p>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- GALLERY SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-gallery" class="section-content hidden">
+                    <div class="admin-section">
+                        <div class="section-header">
+                            <h3>Gallery Images</h3>
+                            <div class="actions">
+                                <button class="btn btn-primary btn-sm" id="showAddGalleryForm"><i class="fas fa-plus"></i> Add Image</button>
+                            </div>
+                        </div>
+                        <div id="galleryFormContainer" class="hidden" style="margin-bottom: 20px; padding: 20px; background: var(--bg-light); border-radius: var(--radius);">
+                            <h4 id="galleryFormTitle">Add New Image</h4>
+                            <form id="galleryForm" class="admin-form">
+                                <input type="hidden" id="galleryEditId" />
+                                <div class="full-width">
+                                    <label>Image URL *</label>
+                                    <input type="url" id="galleryUrl" placeholder="https://images.unsplash.com/..." required />
+                                </div>
+                                <div class="full-width">
+                                    <label>Caption</label>
+                                    <input type="text" id="galleryCaption" placeholder="e.g. Hospital Entrance" />
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary" id="gallerySubmitBtn"><i class="fas fa-save"></i> Save Image</button>
+                                    <button type="button" class="btn btn-outline-secondary" id="cancelGalleryForm">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>#</th><th>Image</th><th>Caption</th><th>Actions</th></tr></thead>
+                                <tbody id="galleryTableBody"></tbody>
+                            </table>
+                        </div>
+                        <p id="noGalleryMsg" class="text-muted" style="text-align:center; padding:20px 0;">No gallery images added yet.</p>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- CONTACT INFO SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-contact" class="section-content hidden">
+                    <div class="admin-section">
+                        <div class="section-header"><h3>Contact Information</h3></div>
+                        <form id="contactFormAdmin" class="admin-form">
+                            <div class="full-width">
+                                <label>Hospital Name</label>
+                                <input type="text" id="contactName" placeholder="Kegogi Medicare Hospital" />
+                            </div>
+                            <div>
+                                <label>Phone 1</label>
+                                <input type="text" id="contactPhone1" placeholder="0757 501 943" />
+                            </div>
+                            <div>
+                                <label>Phone 2</label>
+                                <input type="text" id="contactPhone2" placeholder="0757 501 946" />
+                            </div>
+                            <div class="full-width">
+                                <label>Email</label>
+                                <input type="email" id="contactEmail" placeholder="info@kegogimedicare.co.ke" />
+                            </div>
+                            <div class="full-width">
+                                <label>Address / Tagline</label>
+                                <input type="text" id="contactAddress" placeholder="Comprehensive Healthcare for All" />
+                            </div>
+                            <div class="full-width">
+                                <label>Working Hours</label>
+                                <input type="text" id="contactHours" placeholder="Mon–Sat: 7:00 AM – 8:00 PM • Emergency: 24/7" />
+                            </div>
+                            <div class="full-width">
+                                <label>Accreditation Text</label>
+                                <input type="text" id="contactAccreditation" placeholder="SIYA – Social Health Authority Accredited" />
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Contact Info</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- ========================================================== -->
+                <!-- SETTINGS SECTION -->
+                <!-- ========================================================== -->
+                <div id="section-settings" class="section-content hidden">
+                    <div class="admin-section">
+                        <div class="section-header"><h3>Settings</h3></div>
+                        <form id="settingsForm" class="admin-form">
+                            <div class="full-width">
+                                <label>Site Title</label>
+                                <input type="text" id="settingsSiteTitle" placeholder="Kegogi Medicare Hospital" />
+                            </div>
+                            <div class="full-width">
+                                <label>Tagline</label>
+                                <input type="text" id="settingsTagline" placeholder="Your Health, Our Priority" />
+                            </div>
+                            <div class="full-width">
+                                <label>Hero Background Image URL</label>
+                                <input type="url" id="settingsHeroBg" placeholder="https://images.unsplash.com/..." />
+                            </div>
+                            <div class="full-width">
+                                <label>24/7 Badge Text</label>
+                                <input type="text" id="settingsHoursBadge" placeholder="24 HOURS" />
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Settings</button>
+                                <button type="button" class="btn btn-danger" id="resetAllData"><i class="fas fa-trash"></i> Reset All Data</button>
+                            </div>
+                        </form>
+                        <p class="text-muted" style="margin-top: 16px; font-size: 0.85rem;">
+                            <i class="fas fa-database"></i> All data is stored in your browser's localStorage. Reset will remove all custom data.
+                        </p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ================================================================
+        // DATA STORE – localStorage CRUD
+        // ================================================================
+        const DB = {
+            get(key, defaultVal = null) {
+                try {
+                    const data = localStorage.getItem('kegogi_' + key);
+                    return data ? JSON.parse(data) : defaultVal;
+                } catch { return defaultVal; }
+            },
+            set(key, val) {
+                localStorage.setItem('kegogi_' + key, JSON.stringify(val));
+            },
+            // Helpers
+            getServices() { return this.get('services', []); },
+            setServices(s) { this.set('services', s); },
+            getSpecialists() { return this.get('specialists', []); },
+            setSpecialists(s) { this.set('specialists', s); },
+            getCommitment() { return this.get('commitment', []); },
+            setCommitment(s) { this.set('commitment', s); },
+            getGallery() { return this.get('gallery', []); },
+            setGallery(s) { this.set('gallery', s); },
+            getContact() {
+                return this.get('contact', {
+                    name: 'Kegogi Medicare Hospital',
+                    phone1: '0757 501 943',
+                    phone2: '0757 501 946',
+                    email: 'info@kegogimedicare.co.ke',
+                    address: 'Comprehensive Healthcare for All',
+                    hours: 'Mon–Sat: 7:00 AM – 8:00 PM • Emergency: 24/7',
+                    accreditation: 'SIYA – Social Health Authority Accredited'
+                });
+            },
+            setContact(c) { this.set('contact', c); },
+            getSettings() {
+                return this.get('settings', {
+                    siteTitle: 'Kegogi Medicare Hospital',
+                    tagline: 'Your Health, Our Priority',
+                    heroBg: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                    hoursBadge: '24 HOURS'
+                });
+            },
+            setSettings(s) { this.set('settings', s); },
+
+            // Seed default data if empty
+            seed() {
+                if (this.getServices().length === 0) {
+                    this.setServices([
+                        { id: 1, name: 'FREE Consultation', desc: 'Expert medical advice at no cost', icon: 'fas fa-user-md',
+                            tag: 'Free' },
+                        { id: 2, name: 'Minor Surgery', desc: 'Safe, sterile minor procedures', icon: 'fas fa-scalpel',
+                            tag: '' },
+                        { id: 3, name: 'Out / In-Patient', desc: 'Comfortable care for every need',
+                            icon: 'fas fa-procedures', tag: '' },
+                        { id: 4, name: 'Accident & Emergency', desc: 'Rapid response, 24/7 readiness',
+                            icon: 'fas fa-ambulance', tag: '24/7' },
+                        { id: 5, name: 'Physiotherapy', desc: 'Rehabilitation & mobility support',
+                            icon: 'fas fa-walking', tag: '' },
+                        { id: 6, name: 'Laboratory', desc: 'Advanced diagnostic testing', icon: 'fas fa-microscope',
+                            tag: '' },
+                        { id: 7, name: 'Pharmacy', desc: 'Prescription & over-the-counter', icon: 'fas fa-pills',
+                        tag: '' },
+                        { id: 8, name: 'MCH / ANC / Maternity', desc: 'Mother & child wellness', icon: 'fas fa-baby',
+                            tag: 'Maternal Care' },
+                        { id: 9, name: 'Chronic Disease Management', desc: 'Ongoing support for long-term health',
+                            icon: 'fas fa-heartbeat', tag: '' },
+                        { id: 10, name: 'Pediatric Checkups', desc: 'Specialized care for children',
+                            icon: 'fas fa-child', tag: '' },
+                        { id: 11, name: 'Geriatric Care', desc: 'Dedicated support for seniors', icon: 'fas fa-user-plus',
+                            tag: '' },
+                        { id: 12, name: '24-Hour Service', desc: 'We are always open for you', icon: 'fas fa-clock',
+                            tag: 'Always' }
+                    ]);
+                }
+                if (this.getSpecialists().length === 0) {
+                    this.setSpecialists([
+                        { id: 1, name: 'Pediatric Checkups', desc: 'Child health & development', icon: 'fas fa-child' },
+                        { id: 2, name: 'Geriatric Care', desc: 'Elderly wellness & support', icon: 'fas fa-user-cog' },
+                        { id: 3, name: 'Chronic Disease Management', desc: 'Diabetes, hypertension & more',
+                            icon: 'fas fa-heart' },
+                        { id: 4, name: 'MCH / ANC / Maternity', desc: 'Prenatal to postnatal care',
+                            icon: 'fas fa-baby' },
+                        { id: 5, name: 'Physiotherapy', desc: 'Recovery & movement therapy', icon: 'fas fa-walking' },
+                        { id: 6, name: 'Laboratory & Pharmacy', desc: 'Diagnostics & medication',
+                            icon: 'fas fa-flask' }
+                    ]);
+                }
+                if (this.getCommitment().length === 0) {
+                    this.setCommitment([
+                        { id: 1, title: 'Respect & Dignity', desc: 'Every patient is treated with compassion, respect, and personalized attention.',
+                            icon: 'fas fa-hand-holding-heart' },
+                        { id: 2, title: 'Prompt Service', desc: 'We value your time — efficient, timely care without unnecessary delays.',
+                            icon: 'fas fa-clock' },
+                        { id: 3, title: 'Certified Personnel', desc: 'Our team consists of qualified, experienced, and continuously trained professionals.',
+                            icon: 'fas fa-user-tie' },
+                        { id: 4, title: 'Compassionate Care', desc: 'We listen, we care, and we treat you like family.',
+                            icon: 'fas fa-notes-medical' },
+                        { id: 5, title: 'Modern Facilities', desc: 'State-of-the-art equipment and a clean, safe environment for all.',
+                            icon: 'fas fa-microscope' },
+                        { id: 6, title: 'Qualified Medical Professionals', desc: 'Expertise you can trust, from consultation to recovery.',
+                            icon: 'fas fa-user-md' }
+                    ]);
+                }
+                if (this.getGallery().length === 0) {
+                    this.setGallery([
+                        { id: 1, url: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                            caption: 'Hospital Entrance' },
+                        { id: 2, url: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                            caption: 'Comfortable Reception' },
+                        { id: 3, url: 'https://images.unsplash.com/photo-1530023367847-a683933f4172?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                            caption: 'Modern Medical Equipment' },
+                        { id: 4, url: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                            caption: 'Patient Wards' }
+                    ]);
+                }
+            }
+        };
+
+        // ================================================================
+        // TOAST NOTIFICATIONS
+        // ================================================================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.innerHTML = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 3000);
+        }
+
+        // ================================================================
+        // ADMIN APP CONTROLLER
+        // ================================================================
+        const App = {
+            currentSection: 'dashboard',
+            isLoggedIn: false,
+
+            init() {
+                // Seed DB
+                DB.seed();
+
+                // Login
+                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const pass = document.getElementById('loginPassword').value.trim();
+                    if (email === 'admin@kegogimedicare.co.ke' && pass === 'admin123') {
+                        this.isLoggedIn = true;
+                        document.getElementById('loginScreen').style.display = 'none';
+                        document.getElementById('adminApp').style.display = 'block';
+                        this.loadAll();
+                        showToast('Welcome back, Admin!');
+                    } else {
+                        document.getElementById('loginError').style.display = 'block';
+                    }
+                });
+
+                // Logout
+                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.isLoggedIn = false;
+                    document.getElementById('adminApp').style.display = 'none';
+                    document.getElementById('loginScreen').style.display = 'flex';
+                    document.getElementById('loginError').style.display = 'none';
+                    showToast('Logged out successfully.');
+                });
+
+                // Sidebar navigation
+                document.querySelectorAll('.sidebar-nav a[data-section]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const section = link.dataset.section;
+                        this.switchSection(section);
+                    });
+                });
+
+                // Quick action links
+                document.querySelectorAll('a[data-section]').forEach(link => {
+                    if (!link.closest('.sidebar-nav')) {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            this.switchSection(link.dataset.section);
+                        });
+                    }
+                });
+
+                // Sidebar toggle (mobile)
+                document.getElementById('sidebarToggle').addEventListener('click', () => {
+                    document.getElementById('sidebar').classList.toggle('open');
+                });
+
+                // Close sidebar on outside click (mobile)
+                document.addEventListener('click', (e) => {
+                    const sidebar = document.getElementById('sidebar');
+                    const toggle = document.getElementById('sidebarToggle');
+                    if (window.innerWidth <= 992) {
+                        if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
+                            sidebar.classList.remove('open');
+                        }
+                    }
+                });
+
+                // Load forms
+                this.setupServiceForm();
+                this.setupSpecialistForm();
+                this.setupCommitmentForm();
+                this.setupGalleryForm();
+                this.setupContactForm();
+                this.setupSettingsForm();
+                this.setupResetAll();
+
+                // Check if already logged in (session)
+                if (this.isLoggedIn) {
+                    this.loadAll();
+                }
+            },
+
+            switchSection(section) {
+                this.currentSection = section;
+                // Update sidebar
+                document.querySelectorAll('.sidebar-nav a[data-section]').forEach(a => {
+                    a.classList.toggle('active', a.dataset.section === section);
+                });
+                // Show/hide sections
+                document.querySelectorAll('.section-content').forEach(el => {
+                    el.classList.add('hidden');
+                });
+                const target = document.getElementById('section-' + section);
+                if (target) target.classList.remove('hidden');
+
+                // Update title
+                const titles = {
+                    dashboard: 'Dashboard',
+                    services: 'Services',
+                    specialists: 'Specialists',
+                    commitment: 'Commitment',
+                    gallery: 'Gallery',
+                    contact: 'Contact Info',
+                    settings: 'Settings'
+                };
+                document.getElementById('pageTitle').innerHTML = titles[section] || 'Dashboard';
+
+                // Refresh data on section switch
+                if (section === 'services') this.renderServices();
+                if (section === 'specialists') this.renderSpecialists();
+                if (section === 'commitment') this.renderCommitment();
+                if (section === 'gallery') this.renderGallery();
+                if (section === 'contact') this.loadContactForm();
+                if (section === 'settings') this.loadSettingsForm();
+                if (section === 'dashboard') this.updateStats();
+
+                // Close mobile sidebar
+                document.getElementById('sidebar').classList.remove('open');
+            },
+
+            loadAll() {
+                this.updateStats();
+                this.renderServices();
+                this.renderSpecialists();
+                this.renderCommitment();
+                this.renderGallery();
+                this.loadContactForm();
+                this.loadSettingsForm();
+                this.switchSection('dashboard');
+            },
+
+            updateStats() {
+                const services = DB.getServices();
+                const specialists = DB.getSpecialists();
+                const commitment = DB.getCommitment();
+                const gallery = DB.getGallery();
+                document.getElementById('statServices').textContent = services.length;
+                document.getElementById('statSpecialists').textContent = specialists.length;
+                document.getElementById('statCommitment').textContent = commitment.length;
+                document.getElementById('statGallery').textContent = gallery.length;
+                document.getElementById('serviceCount').textContent = services.length;
+                document.getElementById('specialistCount').textContent = specialists.length;
+            },
+
+            // -------- SERVICES --------
+            setupServiceForm() {
+                document.getElementById('showAddServiceForm').addEventListener('click', () => {
+                    document.getElementById('serviceFormContainer').classList.remove('hidden');
+                    document.getElementById('serviceFormTitle').textContent = 'Add New Service';
+                    document.getElementById('serviceEditId').value = '';
+                    document.getElementById('serviceForm').reset();
+                    document.getElementById('serviceSubmitBtn').textContent = 'Save Service';
+                });
+                document.getElementById('cancelServiceForm').addEventListener('click', () => {
+                    document.getElementById('serviceFormContainer').classList.add('hidden');
+                });
+                document.getElementById('serviceForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('serviceEditId').value;
+                    const data = {
+                        name: document.getElementById('serviceName').value.trim(),
+                        desc: document.getElementById('serviceDesc').value.trim(),
+                        icon: document.getElementById('serviceIcon').value.trim() || 'fas fa-heartbeat',
+                        tag: document.getElementById('serviceTag').value.trim()
+                    };
+                    let services = DB.getServices();
+                    if (id) {
+                        const idx = services.findIndex(s => s.id == id);
+                        if (idx !== -1) { services[idx] = { ...services[idx], ...data }; }
+                    } else {
+                        data.id = Date.now();
+                        services.push(data);
+                    }
+                    DB.setServices(services);
+                    this.renderServices();
+                    this.updateStats();
+                    document.getElementById('serviceFormContainer').classList.add('hidden');
+                    showToast(id ? 'Service updated!' : 'Service added!');
+                });
+            },
+
+            renderServices() {
+                const services = DB.getServices();
+                const tbody = document.getElementById('servicesTableBody');
+                const noMsg = document.getElementById('noServicesMsg');
+                if (services.length === 0) {
+                    tbody.innerHTML = '';
+                    noMsg.style.display = 'block';
+                    return;
+                }
+                noMsg.style.display = 'none';
+                tbody.innerHTML = services.map((s, i) => `
+                            <tr>
+                                <td>${i+1}</td>
+                                <td><i class="${s.icon}" style="color:var(--secondary);"></i></td>
+                                <td><strong>${s.name}</strong></td>
+                                <td>${s.desc || '-'}</td>
+                                <td>${s.tag ? `<span class="badge" style="background:var(--secondary);color:#fff;padding:2px 10px;border-radius:50px;font-size:0.7rem;">${s.tag}</span>` : '-'}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-warning btn-sm" onclick="App.editService(${s.id})"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm" onclick="App.deleteService(${s.id})"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `).join('');
+            },
+
+            editService(id) {
+                const services = DB.getServices();
+                const s = services.find(x => x.id === id);
+                if (!s) return;
+                document.getElementById('serviceFormContainer').classList.remove('hidden');
+                document.getElementById('serviceFormTitle').textContent = 'Edit Service';
+                document.getElementById('serviceEditId').value = s.id;
+                document.getElementById('serviceName').value = s.name;
+                document.getElementById('serviceDesc').value = s.desc || '';
+                document.getElementById('serviceIcon').value = s.icon || 'fas fa-heartbeat';
+                document.getElementById('serviceTag').value = s.tag || '';
+                document.getElementById('serviceSubmitBtn').textContent = 'Update Service';
+            },
+
+            deleteService(id) {
+                if (!confirm('Delete this service?')) return;
+                let services = DB.getServices();
+                services = services.filter(s => s.id !== id);
+                DB.setServices(services);
+                this.renderServices();
+                this.updateStats();
+                showToast('Service deleted.');
+            },
+
+            // -------- SPECIALISTS --------
+            setupSpecialistForm() {
+                document.getElementById('showAddSpecialistForm').addEventListener('click', () => {
+                    document.getElementById('specialistFormContainer').classList.remove('hidden');
+                    document.getElementById('specialistFormTitle').textContent = 'Add New Specialist';
+                    document.getElementById('specialistEditId').value = '';
+                    document.getElementById('specialistForm').reset();
+                    document.getElementById('specialistSubmitBtn').textContent = 'Save Specialist';
+                });
+                document.getElementById('cancelSpecialistForm').addEventListener('click', () => {
+                    document.getElementById('specialistFormContainer').classList.add('hidden');
+                });
+                document.getElementById('specialistForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('specialistEditId').value;
+                    const data = {
+                        name: document.getElementById('specialistName').value.trim(),
+                        desc: document.getElementById('specialistDesc').value.trim(),
+                        icon: document.getElementById('specialistIcon').value.trim() || 'fas fa-user-md'
+                    };
+                    let list = DB.getSpecialists();
+                    if (id) {
+                        const idx = list.findIndex(x => x.id == id);
+                        if (idx !== -1) { list[idx] = { ...list[idx], ...data }; }
+                    } else {
+                        data.id = Date.now();
+                        list.push(data);
+                    }
+                    DB.setSpecialists(list);
+                    this.renderSpecialists();
+                    this.updateStats();
+                    document.getElementById('specialistFormContainer').classList.add('hidden');
+                    showToast(id ? 'Specialist updated!' : 'Specialist added!');
+                });
+            },
+
+            renderSpecialists() {
+                const list = DB.getSpecialists();
+                const tbody = document.getElementById('specialistsTableBody');
+                const noMsg = document.getElementById('noSpecialistsMsg');
+                if (list.length === 0) { tbody.innerHTML = '';
+                    noMsg.style.display = 'block'; return; }
+                noMsg.style.display = 'none';
+                tbody.innerHTML = list.map((s, i) => `
+                            <tr>
+                                <td>${i+1}</td>
+                                <td><i class="${s.icon}" style="color:var(--secondary);"></i></td>
+                                <td><strong>${s.name}</strong></td>
+                                <td>${s.desc || '-'}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-warning btn-sm" onclick="App.editSpecialist(${s.id})"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm" onclick="App.deleteSpecialist(${s.id})"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `).join('');
+            },
+
+            editSpecialist(id) {
+                const list = DB.getSpecialists();
+                const s = list.find(x => x.id === id);
+                if (!s) return;
+                document.getElementById('specialistFormContainer').classList.remove('hidden');
+                document.getElementById('specialistFormTitle').textContent = 'Edit Specialist';
+                document.getElementById('specialistEditId').value = s.id;
+                document.getElementById('specialistName').value = s.name;
+                document.getElementById('specialistDesc').value = s.desc || '';
+                document.getElementById('specialistIcon').value = s.icon || 'fas fa-user-md';
+                document.getElementById('specialistSubmitBtn').textContent = 'Update Specialist';
+            },
+
+            deleteSpecialist(id) {
+                if (!confirm('Delete this specialist?')) return;
+                let list = DB.getSpecialists();
+                list = list.filter(s => s.id !== id);
+                DB.setSpecialists(list);
+                this.renderSpecialists();
+                this.updateStats();
+                showToast('Specialist deleted.');
+            },
+
+            // -------- COMMITMENT --------
+            setupCommitmentForm() {
+                document.getElementById('showAddCommitmentForm').addEventListener('click', () => {
+                    document.getElementById('commitmentFormContainer').classList.remove('hidden');
+                    document.getElementById('commitmentFormTitle').textContent = 'Add New Commitment';
+                    document.getElementById('commitmentEditId').value = '';
+                    document.getElementById('commitmentForm').reset();
+                    document.getElementById('commitmentSubmitBtn').textContent = 'Save Item';
+                });
+                document.getElementById('cancelCommitmentForm').addEventListener('click', () => {
+                    document.getElementById('commitmentFormContainer').classList.add('hidden');
+                });
+                document.getElementById('commitmentForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('commitmentEditId').value;
+                    const data = {
+                        title: document.getElementById('commitmentTitle').value.trim(),
+                        desc: document.getElementById('commitmentDesc').value.trim(),
+                        icon: document.getElementById('commitmentIcon').value.trim() || 'fas fa-heart'
+                    };
+                    let list = DB.getCommitment();
+                    if (id) {
+                        const idx = list.findIndex(x => x.id == id);
+                        if (idx !== -1) { list[idx] = { ...list[idx], ...data }; }
+                    } else {
+                        data.id = Date.now();
+                        list.push(data);
+                    }
+                    DB.setCommitment(list);
+                    this.renderCommitment();
+                    this.updateStats();
+                    document.getElementById('commitmentFormContainer').classList.add('hidden');
+                    showToast(id ? 'Commitment updated!' : 'Commitment added!');
+                });
+            },
+
+            renderCommitment() {
+                const list = DB.getCommitment();
+                const tbody = document.getElementById('commitmentTableBody');
+                const noMsg = document.getElementById('noCommitmentMsg');
+                if (list.length === 0) { tbody.innerHTML = '';
+                    noMsg.style.display = 'block'; return; }
+                noMsg.style.display = 'none';
+                tbody.innerHTML = list.map((s, i) => `
+                            <tr>
+                                <td>${i+1}</td>
+                                <td><i class="${s.icon}" style="color:var(--secondary);"></i></td>
+                                <td><strong>${s.title}</strong></td>
+                                <td>${s.desc || '-'}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-warning btn-sm" onclick="App.editCommitment(${s.id})"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm" onclick="App.deleteCommitment(${s.id})"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `).join('');
+            },
+
+            editCommitment(id) {
+                const list = DB.getCommitment();
+                const s = list.find(x => x.id === id);
+                if (!s) return;
+                document.getElementById('commitmentFormContainer').classList.remove('hidden');
+                document.getElementById('commitmentFormTitle').textContent = 'Edit Commitment';
+                document.getElementById('commitmentEditId').value = s.id;
+                document.getElementById('commitmentTitle').value = s.title;
+                document.getElementById('commitmentDesc').value = s.desc || '';
+                document.getElementById('commitmentIcon').value = s.icon || 'fas fa-heart';
+                document.getElementById('commitmentSubmitBtn').textContent = 'Update Item';
+            },
+
+            deleteCommitment(id) {
+                if (!confirm('Delete this commitment item?')) return;
+                let list = DB.getCommitment();
+                list = list.filter(s => s.id !== id);
+                DB.setCommitment(list);
+                this.renderCommitment();
+                this.updateStats();
+                showToast('Commitment deleted.');
+            },
+
+            // -------- GALLERY --------
+            setupGalleryForm() {
+                document.getElementById('showAddGalleryForm').addEventListener('click', () => {
+                    document.getElementById('galleryFormContainer').classList.remove('hidden');
+                    document.getElementById('galleryFormTitle').textContent = 'Add New Image';
+                    document.getElementById('galleryEditId').value = '';
+                    document.getElementById('galleryForm').reset();
+                    document.getElementById('gallerySubmitBtn').textContent = 'Save Image';
+                });
+                document.getElementById('cancelGalleryForm').addEventListener('click', () => {
+                    document.getElementById('galleryFormContainer').classList.add('hidden');
+                });
+                document.getElementById('galleryForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('galleryEditId').value;
+                    const data = {
+                        url: document.getElementById('galleryUrl').value.trim(),
+                        caption: document.getElementById('galleryCaption').value.trim()
+                    };
+                    let list = DB.getGallery();
+                    if (id) {
+                        const idx = list.findIndex(x => x.id == id);
+                        if (idx !== -1) { list[idx] = { ...list[idx], ...data }; }
+                    } else {
+                        data.id = Date.now();
+                        list.push(data);
+                    }
+                    DB.setGallery(list);
+                    this.renderGallery();
+                    this.updateStats();
+                    document.getElementById('galleryFormContainer').classList.add('hidden');
+                    showToast(id ? 'Image updated!' : 'Image added!');
+                });
+            },
+
+            renderGallery() {
+                const list = DB.getGallery();
+                const tbody = document.getElementById('galleryTableBody');
+                const noMsg = document.getElementById('noGalleryMsg');
+                if (list.length === 0) { tbody.innerHTML = '';
+                    noMsg.style.display = 'block'; return; }
+                noMsg.style.display = 'none';
+                tbody.innerHTML = list.map((s, i) => `
+                            <tr>
+                                <td>${i+1}</td>
+                                <td><img src="${s.url}" alt="${s.caption}" style="width:60px;height:45px;object-fit:cover;border-radius:6px;" /></td>
+                                <td>${s.caption || 'Untitled'}</td>
+                                <td class="actions-cell">
+                                    <button class="btn btn-warning btn-sm" onclick="App.editGallery(${s.id})"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm" onclick="App.deleteGallery(${s.id})"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `).join('');
+            },
+
+            editGallery(id) {
+                const list = DB.getGallery();
+                const s = list.find(x => x.id === id);
+                if (!s) return;
+                document.getElementById('galleryFormContainer').classList.remove('hidden');
+                document.getElementById('galleryFormTitle').textContent = 'Edit Image';
+                document.getElementById('galleryEditId').value = s.id;
+                document.getElementById('galleryUrl').value = s.url;
+                document.getElementById('galleryCaption').value = s.caption || '';
+                document.getElementById('gallerySubmitBtn').textContent = 'Update Image';
+            },
+
+            deleteGallery(id) {
+                if (!confirm('Delete this image?')) return;
+                let list = DB.getGallery();
+                list = list.filter(s => s.id !== id);
+                DB.setGallery(list);
+                this.renderGallery();
+                this.updateStats();
+                showToast('Image deleted.');
+            },
+
+            // -------- CONTACT --------
+            loadContactForm() {
+                const c = DB.getContact();
+                document.getElementById('contactName').value = c.name || '';
+                document.getElementById('contactPhone1').value = c.phone1 || '';
+                document.getElementById('contactPhone2').value = c.phone2 || '';
+                document.getElementById('contactEmail').value = c.email || '';
+                document.getElementById('contactAddress').value = c.address || '';
+                document.getElementById('contactHours').value = c.hours || '';
+                document.getElementById('contactAccreditation').value = c.accreditation || '';
+            },
+
+            setupContactForm() {
+                document.getElementById('contactFormAdmin').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const data = {
+                        name: document.getElementById('contactName').value.trim(),
+                        phone1: document.getElementById('contactPhone1').value.trim(),
+                        phone2: document.getElementById('contactPhone2').value.trim(),
+                        email: document.getElementById('contactEmail').value.trim(),
+                        address: document.getElementById('contactAddress').value.trim(),
+                        hours: document.getElementById('contactHours').value.trim(),
+                        accreditation: document.getElementById('contactAccreditation').value.trim()
+                    };
+                    DB.setContact(data);
+                    showToast('Contact info saved!');
+                });
+            },
+
+            // -------- SETTINGS --------
+            loadSettingsForm() {
+                const s = DB.getSettings();
+                document.getElementById('settingsSiteTitle').value = s.siteTitle || '';
+                document.getElementById('settingsTagline').value = s.tagline || '';
+                document.getElementById('settingsHeroBg').value = s.heroBg || '';
+                document.getElementById('settingsHoursBadge').value = s.hoursBadge || '';
+            },
+
+            setupSettingsForm() {
+                document.getElementById('settingsForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const data = {
+                        siteTitle: document.getElementById('settingsSiteTitle').value.trim(),
+                        tagline: document.getElementById('settingsTagline').value.trim(),
+                        heroBg: document.getElementById('settingsHeroBg').value.trim(),
+                        hoursBadge: document.getElementById('settingsHoursBadge').value.trim()
+                    };
+                    DB.setSettings(data);
+                    showToast('Settings saved!');
+                });
+            },
+
+            setupResetAll() {
+                document.getElementById('resetAllData').addEventListener('click', () => {
+                    if (!confirm('⚠️ This will delete ALL custom data and restore defaults. Continue?')) return;
+                    if (!confirm('Really? All services, specialists, gallery, etc. will be reset.')) return;
+                    localStorage.removeItem('kegogi_services');
+                    localStorage.removeItem('kegogi_specialists');
+                    localStorage.removeItem('kegogi_commitment');
+                    localStorage.removeItem('kegogi_gallery');
+                    localStorage.removeItem('kegogi_contact');
+                    localStorage.removeItem('kegogi_settings');
+                    DB.seed();
+                    this.loadAll();
+                    showToast('All data has been reset to defaults.');
+                });
+            }
+        };
+
+        // ================================================================
+        // BOOT
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+        });
+    </script>
+</body>
+</html>
