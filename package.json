@@ -1,6 +1,7 @@
 {
   "name": "kegogi-backend",
   "version": "1.0.0",
+  "description": "Backend for Kegogi Medicare Hospital",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,7 +15,7 @@
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.0",
     "multer": "^1.4.5",
-    "cloudinary": "^1.37.0" // Optional: for cloud image storage
+    "cloudinary": "^1.37.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
