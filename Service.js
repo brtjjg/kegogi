@@ -1,11 +1,23 @@
-const mongoose = require('mongoose');
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
 
-const ServiceSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  desc: { type: String },
-  icon: { type: String, default: 'fas fa-heartbeat' },
-  tag: { type: String },
-  createdAt: { type: Date, default: Date.now }
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Serve static files from the "public" folder
+app.use(express.static('public'));
+
+// Health check endpoint (optional)
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'OK', message: 'Kegogi Medicare backend is running' });
 });
 
-module.exports = mongoose.model('Service', ServiceSchema);
+// For any other route, serve the HTML file (SPA support)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
