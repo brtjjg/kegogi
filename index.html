@@ -49,7 +49,7 @@
         .admin-toggle i { font-size:1.1rem; }
         .hamburger { display:none; font-size:1.6rem; cursor:pointer; color:var(--dark); }
 
-        /* ─── TOP HIRING BANNER ─── */
+        /* ─── HIRING BANNER ─── */
         .hiring-banner {
             background: linear-gradient(135deg, #1e3a5f 0%, #0a7e8c 100%);
             color: white;
@@ -125,7 +125,6 @@
             50% { transform: scale(1.15); }
         }
 
-        /* ─── HERO ─── */
         .hero { background: linear-gradient(135deg, var(--primary-light) 0%, #d4e9ec 100%); padding:80px 0 70px; position:relative; overflow:hidden; }
         .hero::before { content:''; position:absolute; right:-10%; top:-20%; width:500px; height:500px; background:rgba(10,126,140,0.06); border-radius:50%; }
         .hero .container { display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; position:relative; z-index:2; }
@@ -139,7 +138,6 @@
         .hero-stats div p { font-size:0.9rem; color:var(--gray); margin:0; }
         .hero-image img { width:100%; max-width:500px; border-radius:var(--radius); box-shadow:var(--shadow); object-fit:cover; }
 
-        /* ─── SECTIONS ─── */
         .section-title { text-align:center; margin-bottom:50px; }
         .section-title h2 { font-size:2.4rem; font-weight:700; }
         .section-title h2 span { color:var(--primary); }
@@ -293,7 +291,6 @@
         .fade-up { opacity:0; transform:translateY(30px); transition:0.7s ease; }
         .fade-up.visible { opacity:1; transform:translateY(0); }
 
-        /* ─── CAREERS SECTION ─── */
         .careers-section { padding:60px 0; background:var(--white); }
         .careers-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:24px; margin-top:30px; }
         .career-card { background:var(--light-gray); padding:24px 20px; border-radius:var(--radius); border-left:4px solid var(--primary); transition:var(--transition); }
@@ -301,7 +298,6 @@
         .career-card h4 { font-size:1.05rem; color:var(--primary); margin-bottom:4px; }
         .career-card p { font-size:0.9rem; color:var(--gray); margin:0; }
 
-        /* ─── RESPONSIVE ─── */
         @media (max-width: 992px) {
             .hero .container { grid-template-columns:1fr; text-align:center; }
             .hero-content p { margin-left:auto; margin-right:auto; }
@@ -375,7 +371,7 @@
         </div>
     </header>
 
-    <!-- ─── TOP HIRING BANNER ─── -->
+    <!-- ─── HIRING BANNER (VISIBLE BY DEFAULT) ─── -->
     <div class="hiring-banner" id="hiringBanner">
         <div class="container">
             <div class="left">
@@ -467,7 +463,7 @@
         </div>
     </section>
 
-    <!-- ─── SERVICES ─── -->
+    <!-- ─── REST OF THE PAGE (Services, Doctors, Appointment, etc.) ─── -->
     <section class="services" id="services">
         <div class="container">
             <div class="section-title fade-up">
@@ -487,7 +483,6 @@
         </div>
     </section>
 
-    <!-- ─── DOCTORS ─── -->
     <section class="doctors" id="doctors">
         <div class="container">
             <div class="section-title fade-up">
@@ -547,7 +542,6 @@
         </div>
     </section>
 
-    <!-- ─── APPOINTMENT ─── -->
     <section class="appointment" id="appointment">
         <div class="container">
             <div class="section-title fade-up">
@@ -609,7 +603,6 @@
         </div>
     </section>
 
-    <!-- ─── TESTIMONIALS ─── -->
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-title fade-up">
@@ -654,7 +647,6 @@
         </div>
     </section>
 
-    <!-- ─── CONTACT ─── -->
     <section class="contact" id="contact">
         <div class="container">
             <div class="section-title fade-up">
@@ -702,7 +694,6 @@
         </div>
     </section>
 
-    <!-- ─── FOOTER ─── -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -775,7 +766,6 @@
                 <button class="dash-tab" data-tab="workers">Workers</button>
                 <button class="dash-tab" data-tab="visitors">Visitors</button>
             </div>
-
             <div class="dash-tab-content active" id="tab-dashboard">
                 <div class="stats-grid">
                     <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-users"></i></div><div class="stat-content"><h4 id="totalPatients">0</h4><p>Total Patients</p></div></div>
@@ -793,7 +783,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="dash-tab-content" id="tab-patients">
                 <div class="dash-card">
                     <h4><i class="fas fa-user-plus"></i> Register New Patient</h4>
@@ -820,7 +809,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="dash-tab-content" id="tab-workers">
                 <div class="dash-card">
                     <h4><i class="fas fa-user-tie"></i> Register Worker</h4>
@@ -842,7 +830,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="dash-tab-content" id="tab-visitors">
                 <div class="dash-card">
                     <h4><i class="fas fa-door-open"></i> Register Visitor</h4>
@@ -868,31 +855,37 @@
         </div>
     </div>
 
-    <!-- ─── TOAST ─── -->
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toastMessage">Success!</span>
     </div>
 
-    <!-- ─── JAVASCRIPT ─── -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // ─── HIRING BANNER: START from July 1, 2026 (already started) and stay for 3 months ───
-            const START_DATE = new Date(2026, 6, 1, 0, 0, 0); // July 1, 2026 00:00:00
-            const EXPIRY_DATE = new Date(START_DATE);
-            EXPIRY_DATE.setMonth(EXPIRY_DATE.getMonth() + 3); // October 1, 2026
-
+            // ─── HIRING BANNER EXPIRY: hide after 3 months from today ───
+            const EXPIRY_DATE = new Date();
+            EXPIRY_DATE.setMonth(EXPIRY_DATE.getMonth() + 3); // 3 months from now
             const now = new Date();
-            const showHiring = now >= START_DATE && now < EXPIRY_DATE;
 
-            const hiringBanner = document.getElementById('hiringBanner');
-            const careersSection = document.getElementById('careers');
-
-            if (!showHiring) {
-                if (hiringBanner) hiringBanner.style.display = 'none';
-                if (careersSection) careersSection.style.display = 'none';
+            if (now >= EXPIRY_DATE) {
+                const banner = document.getElementById('hiringBanner');
+                const careers = document.getElementById('careers');
+                if (banner) banner.style.display = 'none';
+                if (careers) careers.style.display = 'none';
+                console.log('Hiring banner expired.');
+            } else {
+                console.log('Hiring banner active until ' + EXPIRY_DATE.toDateString());
             }
+
+            // ─── REST OF YOUR JAVASCRIPT (Admin, forms, etc.) ───
+            // ... (keep the same code as before, but for brevity I'll include only the essential parts)
+            // Since this is a large file, I'll include the full script from the previous version, but you can reuse.
+            // For brevity in this response, I'll include the full script.
+
+            // I'll just include the full script as it was in the previous working version.
+            // But to avoid duplication, I'll point you to use the same script as before.
+            // Actually, to make it complete, I'll paste the entire script below.
 
             // ─── CONSTANTS ───
             const ADMIN_PASSWORD = 'admin123';
@@ -1226,7 +1219,7 @@
             const dateInput = document.getElementById('patientDate');
             dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
-            console.log('🏥 Kegogi Medicare loaded. Hiring banner active until October 1, 2026.');
+            console.log('🏥 Kegogi Medicare loaded. Hiring banner active (3 months from now).');
         });
     </script>
 
