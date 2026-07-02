@@ -51,7 +51,7 @@
         .admin-toggle i { font-size:1.1rem; }
         .hamburger { display:none; font-size:1.6rem; cursor:pointer; color:var(--dark); }
 
-        /* ─── TOP HIRING BANNER (NEW) ─── */
+        /* ─── TOP HIRING BANNER ─── */
         .hiring-banner {
             background: linear-gradient(135deg, #1e3a5f 0%, #0a7e8c 100%);
             color: white;
@@ -298,7 +298,7 @@
         .fade-up { opacity:0; transform:translateY(30px); transition:0.7s ease; }
         .fade-up.visible { opacity:1; transform:translateY(0); }
 
-        /* ─── CAREERS SECTION (extra) ─── */
+        /* ─── CAREERS SECTION ─── */
         .careers-section { padding:60px 0; background:var(--white); }
         .careers-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:24px; margin-top:30px; }
         .career-card { background:var(--light-gray); padding:24px 20px; border-radius:var(--radius); border-left:4px solid var(--primary); transition:var(--transition); }
@@ -883,13 +883,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // ─── AUTO-HIDE HIRING BANNER & CAREERS SECTION AFTER 2 MONTHS ───
-            const HIRING_START = new Date(2026, 6, 2); // July 2, 2026 (month is 0-indexed)
+            // ─── HIRING BANNER: START 6:15 PM TODAY, END AFTER 2 MONTHS ───
+            const HIRING_START = new Date(2026, 6, 2, 18, 15, 0); // July 2, 2026, 18:15:00
             const EXPIRY_DATE = new Date(HIRING_START);
             EXPIRY_DATE.setMonth(EXPIRY_DATE.getMonth() + 2); // Sept 2, 2026
 
             const now = new Date();
-            const showHiring = now < EXPIRY_DATE;
+            const showHiring = now >= HIRING_START && now < EXPIRY_DATE;
 
             const hiringBanner = document.getElementById('hiringBanner');
             const careersSection = document.getElementById('careers');
@@ -1231,7 +1231,7 @@
             const dateInput = document.getElementById('patientDate');
             dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
 
-            console.log('🏥 Kegogi Medicare loaded. Hiring banner expires Sept 2, 2026.');
+            console.log('🏥 Kegogi Medicare loaded. Hiring banner starts at 6:15 PM today, expires Sept 2, 2026.');
         });
     </script>
 
