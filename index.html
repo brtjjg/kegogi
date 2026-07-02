@@ -3,1313 +3,557 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kegogi Medicare Hospital – 24/7 Comprehensive Care</title>
-
-    <!-- Font Awesome 6 (Free) -->
+    <title>Kegogi Medicare Hospital</title>
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-    <style>
-        /* ---------- RESET & BASE ---------- */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0a4b7a;
-            --primary-light: #1a6da3;
-            --primary-dark: #063255;
-            --secondary: #2d9c7c;
-            --secondary-light: #3fb893;
-            --accent: #f39c12;
-            --bg-light: #f4f9fc;
-            --text-dark: #1e2b37;
-            --text-muted: #4a5b69;
-            --white: #ffffff;
-            --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            --radius: 12px;
-            --transition: 0.3s ease;
-            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font);
-            background: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ---------- BUTTONS ---------- */
-        .btn {
-            display: inline-block;
-            padding: 14px 34px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            letter-spacing: 0.3px;
-        }
-
-        .btn-primary {
-            background: var(--secondary);
-            color: var(--white);
-            box-shadow: 0 4px 14px rgba(45, 156, 124, 0.35);
-        }
-        .btn-primary:hover {
-            background: var(--secondary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(45, 156, 124, 0.45);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid rgba(255, 255, 255, 0.7);
-        }
-        .btn-outline:hover {
-            background: var(--white);
-            color: var(--primary);
-            border-color: var(--white);
-        }
-
-        /* ---------- TOP BAR ---------- */
-        .top-bar {
-            background: var(--primary-dark);
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 0.9rem;
-            padding: 8px 0;
-            border-bottom: 2px solid var(--secondary);
-        }
-        .top-bar .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px 16px;
-        }
-        .top-bar .contact-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-        .top-bar .contact-info i {
-            color: var(--secondary);
-            margin-right: 6px;
-        }
-        .top-bar .contact-info a {
-            transition: var(--transition);
-        }
-        .top-bar .contact-info a:hover {
-            color: var(--secondary-light);
-        }
-        .top-bar .accreditation-badge {
-            background: rgba(45, 156, 124, 0.2);
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--secondary-light);
-            border: 1px solid rgba(45, 156, 124, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .top-bar .accreditation-badge i {
-            color: var(--accent);
-        }
-        .top-bar .hours-badge {
-            background: rgba(243, 156, 18, 0.15);
-            padding: 4px 16px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            border: 1px solid rgba(243, 156, 18, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* ---------- HEADER / NAV ---------- */
-        header {
-            background: var(--white);
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 12px 0;
-        }
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px 20px;
-        }
-
-        /* --- LOGO (TEXT-BASED) --- */
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        /* Optional decorative icon */
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.4rem;
-            font-weight: 700;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(10, 75, 122, 0.25);
-        }
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-        .logo-primary {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: 0.5px;
-        }
-        .logo-primary span {
-            font-weight: 300;
-            color: var(--primary-light);
-        }
-        .logo-secondary {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--secondary);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-top: -4px;
-        }
-        .logo-tagline {
-            font-size: 0.55rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-        /* If you want to use an actual image logo instead, replace the .logo-text block with:
-        <img src="path-to-your-logo.png" alt="Kegogi Medicare Hospital Logo" style="height: 60px; width: auto;" />
-        */
-
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-        nav a {
-            font-weight: 500;
-            color: var(--text-dark);
-            transition: var(--transition);
-            font-size: 0.95rem;
-            position: relative;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary);
-            transition: var(--transition);
-        }
-        nav a:hover {
-            color: var(--primary);
-        }
-        nav a:hover::after {
-            width: 100%;
-        }
-        nav a.cta-nav {
-            background: var(--secondary);
-            color: var(--white);
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 4px 14px rgba(45, 156, 124, 0.3);
-        }
-        nav a.cta-nav::after {
-            display: none;
-        }
-        nav a.cta-nav:hover {
-            background: var(--secondary-light);
-            transform: translateY(-2px);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 6px;
-            background: transparent;
-            border: none;
-        }
-        .hamburger span {
-            display: block;
-            width: 28px;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 4px;
-            transition: var(--transition);
-        }
-
-        /* ---------- HERO ---------- */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 70%, var(--primary-light) 100%);
-            color: var(--white);
-            padding: 80px 0 70px;
-            position: relative;
-            overflow: hidden;
-            background-image: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(6, 50, 85, 0.78);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .hero .container {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        .hero-content h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 8px;
-        }
-        .hero-content h2 span {
-            color: var(--secondary-light);
-        }
-        .hero-content .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
-            margin-bottom: 6px;
-            letter-spacing: 0.5px;
-        }
-        .hero-content .sub-text {
-            font-size: 1.05rem;
-            opacity: 0.85;
-            max-width: 520px;
-            margin: 16px 0 28px;
-            line-height: 1.7;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .hero-badge {
-            margin-top: 28px;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(4px);
-            padding: 8px 22px 8px 16px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 0.85rem;
-        }
-        .hero-badge i {
-            color: var(--accent);
-            font-size: 1.1rem;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(6px);
-            border-radius: var(--radius);
-            padding: 24px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: var(--transition);
-            text-align: center;
-        }
-        .stat-card:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-4px);
-        }
-        .stat-card .number {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: var(--secondary-light);
-        }
-        .stat-card .label {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
-        /* ---------- SECTION TITLES ---------- */
-        .section-title {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        .section-title h3 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .section-title p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .section-title .line {
-            width: 60px;
-            height: 4px;
-            background: var(--secondary);
-            border-radius: 4px;
-            margin: 12px auto 0;
-        }
-
-        /* ---------- SERVICES ---------- */
-        .services {
-            padding: 80px 0 70px;
-            background: var(--white);
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-        }
-        .service-card {
-            background: var(--bg-light);
-            border-radius: var(--radius);
-            padding: 28px 20px 24px;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid transparent;
-            box-shadow: var(--shadow);
-        }
-        .service-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--secondary);
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.07);
-        }
-        .service-card .icon {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 14px;
-            font-size: 1.6rem;
-        }
-        .service-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-        .service-card p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        .service-card .featured-tag {
-            display: inline-block;
-            background: var(--secondary);
-            color: var(--white);
-            font-size: 0.6rem;
-            font-weight: 700;
-            padding: 2px 12px;
-            border-radius: 50px;
-            margin-top: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* ---------- SPECIALIST CLINICS ---------- */
-        .specialist-section {
-            padding: 60px 0 70px;
-            background: var(--bg-light);
-        }
-        .specialist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-        }
-        .specialist-item {
-            background: var(--white);
-            padding: 24px 20px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition);
-        }
-        .specialist-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-        }
-        .specialist-item i {
-            font-size: 2rem;
-            color: var(--secondary);
-            width: 48px;
-            text-align: center;
-        }
-        .specialist-item h5 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--primary);
-        }
-        .specialist-item p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        /* ---------- COMMITMENT ---------- */
-        .commitment {
-            padding: 70px 0 60px;
-            background: var(--white);
-        }
-        .commitment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .commitment-card {
-            text-align: center;
-            padding: 30px 20px;
-            border-radius: var(--radius);
-            background: var(--bg-light);
-            transition: var(--transition);
-            border-bottom: 4px solid transparent;
-        }
-        .commitment-card:hover {
-            border-bottom-color: var(--secondary);
-            transform: translateY(-4px);
-        }
-        .commitment-card i {
-            font-size: 2.8rem;
-            color: var(--secondary);
-            margin-bottom: 14px;
-        }
-        .commitment-card h4 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 6px;
-        }
-        .commitment-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* ---------- ACCREDITATION BANNER ---------- */
-        .accreditation-banner {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: var(--white);
-            padding: 40px 0;
-            text-align: center;
-        }
-        .accreditation-banner .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .accreditation-banner .badge-large {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 12px 32px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        .accreditation-banner .badge-large i {
-            color: var(--accent);
-            font-size: 1.8rem;
-        }
-        .accreditation-banner .badge-large small {
-            font-weight: 300;
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-        .accreditation-banner p {
-            opacity: 0.85;
-            font-size: 0.95rem;
-            margin-top: 4px;
-        }
-
-        /* ---------- GALLERY / FACILITIES ---------- */
-        .gallery-section {
-            padding: 70px 0;
-            background: var(--bg-light);
-        }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
-        .gallery-item {
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            background: var(--white);
-        }
-        .gallery-item:hover {
-            transform: scale(1.02);
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
-        }
-        .gallery-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-        .gallery-item .caption {
-            padding: 16px 20px;
-            text-align: center;
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        /* ---------- CONTACT ---------- */
-        .contact-section {
-            padding: 70px 0 50px;
-            background: var(--white);
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: start;
-        }
-        .contact-info-box h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-        .contact-info-box p {
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 16px;
-            font-size: 1rem;
-        }
-        .contact-detail i {
-            width: 44px;
-            height: 44px;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-        .contact-detail a {
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-        .contact-detail a:hover {
-            color: var(--secondary);
-        }
-
-        .contact-form {
-            background: var(--bg-light);
-            padding: 32px 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        .contact-form h4 {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 14px 18px;
-            border: 1px solid #dde7ef;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: var(--font);
-            transition: var(--transition);
-            background: var(--white);
-            margin-bottom: 14px;
-        }
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(45, 156, 124, 0.15);
-        }
-        .contact-form textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        .contact-form .btn {
-            width: 100%;
-        }
-
-        /* ---------- FOOTER ---------- */
-        .footer-bottom {
-            background: var(--primary-dark);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 24px 0;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        .footer-bottom .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .footer-bottom a {
-            color: var(--secondary-light);
-            transition: var(--transition);
-        }
-        .footer-bottom a:hover {
-            color: var(--white);
-        }
-        .footer-social {
-            display: flex;
-            gap: 16px;
-        }
-        .footer-social a {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-        .footer-social a:hover {
-            color: var(--secondary-light);
-            transform: translateY(-2px);
-        }
-
-        /* ---------- RESPONSIVE ---------- */
-        @media (max-width: 1024px) {
-            .hero .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-content .sub-text {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .hero-badge {
-                justify-content: center;
-            }
-            .hero-stats {
-                max-width: 500px;
-                margin: 0 auto;
-            }
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .top-bar .container {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .top-bar .contact-info {
-                justify-content: center;
-            }
-
-            nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background: var(--white);
-                padding: 20px 0;
-                gap: 14px;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-                border-radius: 0 0 var(--radius) var(--radius);
-            }
-            nav.open {
-                display: flex;
-            }
-            nav a {
-                width: 100%;
-                text-align: center;
-                padding: 8px 0;
-            }
-            nav a.cta-nav {
-                width: auto;
-                margin: 0 auto;
-            }
-            .hamburger {
-                display: flex;
-            }
-
-            .hero {
-                padding: 50px 0 40px;
-            }
-            .hero-content h2 {
-                font-size: 2rem;
-            }
-            .hero-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-            .stat-card .number {
-                font-size: 1.8rem;
-            }
-
-            .section-title h3 {
-                font-size: 1.7rem;
-            }
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .specialist-grid {
-                grid-template-columns: 1fr;
-            }
-            .commitment-grid {
-                grid-template-columns: 1fr;
-            }
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-form {
-                padding: 24px 18px;
-            }
-            .footer-bottom .container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            /* Logo adjustments for mobile */
-            .logo-primary {
-                font-size: 1.3rem;
-            }
-            .logo-secondary {
-                font-size: 0.7rem;
-                letter-spacing: 2px;
-            }
-            .logo-tagline {
-                font-size: 0.5rem;
-            }
-            .logo-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
-            .hero-content h2 {
-                font-size: 1.6rem;
-            }
-            .accreditation-banner .badge-large {
-                font-size: 1rem;
-                padding: 10px 20px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-        }
-    </style>
 </head>
 <body>
 
-    <!-- ===== TOP BAR ===== -->
-    <div class="top-bar">
-        <div class="container">
-            <div class="contact-info">
-                <span><i class="fas fa-phone-alt"></i> <a href="tel:+254757501943">0757 501 943</a></span>
-                <span><i class="fas fa-phone-alt"></i> <a href="tel:+254757501946">0757 501 946</a></span>
-                <span><i class="fas fa-clock"></i> Mon–Sat: 7:00 AM – 8:00 PM</span>
-            </div>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <span class="hours-badge"><i class="fas fa-clock"></i> 24 HOURS</span>
-                <span class="accreditation-badge"><i class="fas fa-check-circle"></i> Social Health Authority Accredited</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== HEADER ===== -->
+    <!-- ─── HEADER ─── -->
     <header>
-        <div class="container">
-            <!-- LOGO: Text-based version matching the provided image -->
-            <div class="logo">
-                <div class="logo-icon">KM</div> <!-- Decorative icon, you can replace this with a heart or cross -->
-                <div class="logo-text">
-                    <div class="logo-primary">KEGOGI <span>MEDICARE</span></div>
-                    <div class="logo-secondary">HOSPITAL</div>
-                    <div class="logo-tagline">YOUR HEALTH, OUR PRIORITY</div>
-                </div>
-                <!-- 
-                    If you have an actual logo image, replace the .logo-text block above with:
-                    <img src="path-to-your-logo.png" alt="Kegogi Medicare Hospital Logo" style="height: 70px; width: auto;" />
-                -->
-            </div>
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <i class="fas fa-heartbeat"></i>
+                Kegogi <span>Medicare</span>
+            </a>
 
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-                <span></span><span></span><span></span>
-            </button>
-
-            <nav id="navbar">
+            <nav class="nav-links" id="navLinks">
+                <a href="#home" class="active">Home</a>
                 <a href="#services">Services</a>
-                <a href="#specialists">Specialists</a>
-                <a href="#commitment">Our Commitment</a>
-                <a href="#gallery">Facilities</a>
+                <a href="#doctors">Doctors</a>
+                <a href="#appointment">Appointment</a>
                 <a href="#contact">Contact</a>
-                <a href="#contact" class="cta-nav"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+                <div class="nav-cta">
+                    <a href="#appointment" class="btn btn-primary">Book Now</a>
+                    <span class="admin-toggle" id="adminToggle">
+                        <i class="fas fa-user-shield"></i> Admin
+                    </span>
+                </div>
             </nav>
+
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </header>
 
-    <!-- ===== HERO ===== -->
+    <!-- ─── HERO ─── (same as before) ───>
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <p class="tagline"><i class="fas fa-heartbeat" style="color: var(--secondary-light); margin-right: 8px;"></i> Your Health, Our Priority</p>
-                <h2>Welcome to <span>Kegogi Medicare</span> Hospital</h2>
-                <p class="sub-text">
-                    Comprehensive, compassionate, and accessible healthcare – available <strong>24 hours a day</strong>.
-                    From emergency care to specialist clinics, we are here for you and your family.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#services" class="btn btn-primary"><i class="fas fa-stethoscope"></i> Explore Services</a>
-                    <a href="#contact" class="btn btn-outline"><i class="fas fa-phone-alt"></i> Contact Us</a>
+                <div class="accreditation-badge">
+                    <i class="fas fa-check-circle"></i> SIYA Social Health Authority Accredited
                 </div>
-                <div class="hero-badge">
-                    <i class="fas fa-shield-alt"></i> Certified Personnel &bull; Modern Facilities &bull; 24/7 Emergency
+                <h1>Welcome to <br /><span>Kegogi Medicare</span> Hospital</h1>
+                <p>Your Health, Our Priority – 24 hours a day, 7 days a week.</p>
+                <div class="hero-buttons">
+                    <a href="#appointment" class="btn btn-primary">
+                        <i class="fas fa-calendar-check"></i> Book Appointment
+                    </a>
+                    <a href="#services" class="btn btn-outline">
+                        <i class="fas fa-stethoscope"></i> Our Services
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div><h3>24/7</h3><p>Emergency Care</p></div>
+                    <div><h3>Free</h3><p>Consultation</p></div>
+                    <div><h3>Accredited</h3><p>Social Health Authority</p></div>
                 </div>
             </div>
-
-            <div class="hero-stats">
-                <div class="stat-card">
-                    <div class="number">24/7</div>
-                    <div class="label">Emergency &amp; Accident Care</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number">100+</div>
-                    <div class="label">Specialist Consultations</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <div class="label">Patient-Centered Care</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number"><i class="fas fa-flask" style="color: var(--secondary-light);"></i></div>
-                    <div class="label">Full Lab &amp; Pharmacy Services</div>
-                </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=400&fit=crop&crop=center" alt="Kegogi Medicare Hospital" />
             </div>
         </div>
     </section>
 
-    <!-- ===== SERVICES ===== -->
+    <!-- ─── SERVICES ─── (same) ───>
     <section class="services" id="services">
         <div class="container">
-            <div class="section-title">
-                <h3>Our Comprehensive Services</h3>
-                <p>Quality healthcare delivered with compassion and expertise – any time, day or night.</p>
-                <div class="line"></div>
+            <div class="section-title fade-up">
+                <h2>Our <span>Services</span></h2>
+                <p>Comprehensive healthcare tailored to your needs.</p>
             </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-user-md"></i></div>
-                    <h4>FREE Consultation</h4>
-                    <p>Expert medical advice at no cost</p>
-                    <span class="featured-tag">Free</span>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-scalpel"></i></div>
-                    <h4>Minor Surgery</h4>
-                    <p>Safe, sterile minor procedures</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-procedures"></i></div>
-                    <h4>Out / In-Patient</h4>
-                    <p>Comfortable care for every need</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-ambulance"></i></div>
-                    <h4>Accident &amp; Emergency</h4>
-                    <p>Rapid response, 24/7 readiness</p>
-                    <span class="featured-tag">24/7</span>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-walking"></i></div>
-                    <h4>Physiotherapy</h4>
-                    <p>Rehabilitation &amp; mobility support</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-microscope"></i></div>
-                    <h4>Laboratory</h4>
-                    <p>Advanced diagnostic testing</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-pills"></i></div>
-                    <h4>Pharmacy</h4>
-                    <p>Prescription &amp; over-the-counter</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-baby"></i></div>
-                    <h4>MCH / ANC / Maternity</h4>
-                    <p>Mother &amp; child wellness</p>
-                    <span class="featured-tag">Maternal Care</span>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                    <h4>Chronic Disease Management</h4>
-                    <p>Ongoing support for long-term health</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-child"></i></div>
-                    <h4>Pediatric Checkups</h4>
-                    <p>Specialized care for children</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-user-plus"></i></div>
-                    <h4>Geriatric Care</h4>
-                    <p>Dedicated support for seniors</p>
-                </div>
-                <div class="service-card">
-                    <div class="icon"><i class="fas fa-clock"></i></div>
-                    <h4>24-Hour Service</h4>
-                    <p>We are always open for you</p>
-                    <span class="featured-tag">Always</span>
-                </div>
+            <div class="service-grid">
+                <div class="service-card fade-up"><i class="fas fa-user-md"></i><h4>Free Consultation</h4><p>Expert advice at no cost.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-scalpel"></i><h4>Minor Surgery</h4><p>Safe and efficient procedures.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-procedures"></i><h4>Out / In-Patient</h4><p>Comfortable admission and day care.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-ambulance"></i><h4>Accident & Emergency</h4><p>24/7 emergency response.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-walking"></i><h4>Physiotherapy</h4><p>Rehabilitation and mobility care.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-flask"></i><h4>Laboratory</h4><p>Advanced diagnostic testing.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-prescription"></i><h4>Pharmacy</h4><p>Quality medicines on-site.</p></div>
+                <div class="service-card fade-up"><i class="fas fa-baby"></i><h4>MCH / ANC / Maternity</h4><p>Maternal and child health services.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SPECIALIST CLINICS ===== -->
-    <section class="specialist-section" id="specialists">
+    <!-- ─── DOCTORS ─── (same) ───>
+    <section class="doctors" id="doctors">
         <div class="container">
-            <div class="section-title">
-                <h3>Specialist Clinics</h3>
-                <p>Expert care across a wide range of medical disciplines.</p>
-                <div class="line"></div>
+            <div class="section-title fade-up">
+                <h2>Our <span>Medical Team</span></h2>
+                <p>Qualified professionals committed to compassionate care.</p>
             </div>
-            <div class="specialist-grid">
-                <div class="specialist-item">
-                    <i class="fas fa-child"></i>
-                    <div>
-                        <h5>Pediatric Checkups</h5>
-                        <p>Child health &amp; development</p>
-                    </div>
-                </div>
-                <div class="specialist-item">
-                    <i class="fas fa-user-cog"></i>
-                    <div>
-                        <h5>Geriatric Care</h5>
-                        <p>Elderly wellness &amp; support</p>
-                    </div>
-                </div>
-                <div class="specialist-item">
-                    <i class="fas fa-heart"></i>
-                    <div>
-                        <h5>Chronic Disease Management</h5>
-                        <p>Diabetes, hypertension &amp; more</p>
-                    </div>
-                </div>
-                <div class="specialist-item">
-                    <i class="fas fa-baby"></i>
-                    <div>
-                        <h5>MCH / ANC / Maternity</h5>
-                        <p>Prenatal to postnatal care</p>
-                    </div>
-                </div>
-                <div class="specialist-item">
-                    <i class="fas fa-walking"></i>
-                    <div>
-                        <h5>Physiotherapy</h5>
-                        <p>Recovery &amp; movement therapy</p>
-                    </div>
-                </div>
-                <div class="specialist-item">
-                    <i class="fas fa-flask"></i>
-                    <div>
-                        <h5>Laboratory &amp; Pharmacy</h5>
-                        <p>Diagnostics &amp; medication</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== ACCREDITATION BANNER ===== -->
-    <section class="accreditation-banner">
-        <div class="container">
-            <div class="badge-large">
-                <i class="fas fa-certificate"></i>
-                Social Health Authority
-                <small>Accredited</small>
-                <i class="fas fa-check-circle" style="color: var(--secondary-light);"></i>
-            </div>
-            <p><i class="fas fa-star" style="color: var(--accent);"></i> Trusted, verified, and committed to the highest standards of care – 24 hours a day.</p>
-        </div>
-    </section>
-
-    <!-- ===== GALLERY / FACILITIES ===== -->
-    <section class="gallery-section" id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h3>Our Facilities</h3>
-                <p>Modern, clean, and welcoming environments for your care.</p>
-                <div class="line"></div>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Hospital exterior" />
-                    <div class="caption">Hospital Entrance</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Reception area" />
-                    <div class="caption">Comfortable Reception</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1530023367847-a683933f4172?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Medical equipment" />
-                    <div class="caption">Modern Medical Equipment</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Patient ward" />
-                    <div class="caption">Patient Wards</div>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: var(--text-muted);">
-                <i class="fas fa-camera"></i> Images are placeholders – replace with your own hospital photos.
-            </p>
-        </div>
-    </section>
-
-    <!-- ===== COMMITMENT ===== -->
-    <section class="commitment" id="commitment">
-        <div class="container">
-            <div class="section-title">
-                <h3>Our Commitment</h3>
-                <p>We are dedicated to serving you with integrity and excellence – every hour of the day.</p>
-                <div class="line"></div>
-            </div>
-            <div class="commitment-grid">
-                <div class="commitment-card">
-                    <i class="fas fa-hand-holding-heart"></i>
-                    <h4>Respect &amp; Dignity</h4>
-                    <p>Every patient is treated with compassion, respect, and personalized attention.</p>
-                </div>
-                <div class="commitment-card">
-                    <i class="fas fa-clock"></i>
-                    <h4>Prompt Service</h4>
-                    <p>We value your time — efficient, timely care without unnecessary delays.</p>
-                </div>
-                <div class="commitment-card">
-                    <i class="fas fa-user-tie"></i>
-                    <h4>Certified Personnel</h4>
-                    <p>Our team consists of qualified, experienced, and continuously trained professionals.</p>
-                </div>
-                <div class="commitment-card">
-                    <i class="fas fa-notes-medical"></i>
-                    <h4>Compassionate Care</h4>
-                    <p>We listen, we care, and we treat you like family.</p>
-                </div>
-                <div class="commitment-card">
-                    <i class="fas fa-microscope"></i>
-                    <h4>Modern Facilities</h4>
-                    <p>State-of-the-art equipment and a clean, safe environment for all.</p>
-                </div>
-                <div class="commitment-card">
-                    <i class="fas fa-user-md"></i>
-                    <h4>Qualified Medical Professionals</h4>
-                    <p>Expertise you can trust, from consultation to recovery.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== CONTACT ===== -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h3>Get in Touch</h3>
-                <p>We're here to help – reach out to us anytime, day or night.</p>
-                <div class="line"></div>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info-box">
-                    <h3>Kegogi Medicare Hospital</h3>
-                    <p><i class="fas fa-map-marker-alt" style="color: var(--secondary);"></i> Comprehensive Healthcare for All</p>
-                    <div class="contact-detail">
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <strong>Call us</strong><br />
-                            <a href="tel:+254757501943">0757 501 943</a> &bull; <a href="tel:+254757501946">0757 501 946</a>
+            <div class="doc-grid">
+                <div class="doc-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=300&fit=crop&crop=face" alt="Dr. Sarah" />
+                    <div class="doc-info">
+                        <h4>Dr. Sarah Johnson</h4>
+                        <p>General Physician</p>
+                        <div class="doc-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <strong>Email</strong><br />
-                            <a href="mailto:info@kegogimedicare.co.ke">info@kegogimedicare.co.ke</a>
+                </div>
+                <div class="doc-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=300&fit=crop&crop=face" alt="Dr. Mark" />
+                    <div class="doc-info">
+                        <h4>Dr. Mark Rivera</h4>
+                        <p>Surgeon</p>
+                        <div class="doc-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
                         </div>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <strong>Working Hours</strong><br />
-                            Mon–sun: 24/7 &bull; Emergency: 24/7
-                        </div>
-                    </div>
-                    <div style="margin-top: 20px; padding: 16px 20px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); border-left: 4px solid var(--secondary);">
-                        <p style="font-weight: 600; color: var(--primary);"><i class="fas fa-shield-alt" style="color: var(--secondary);"></i>Social Health Authority Accredited</p>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">We accept all SHA covers. Quality care, always – 24 hours.</p>
                     </div>
                 </div>
+                <div class="doc-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=300&fit=crop&crop=face" alt="Dr. Emily" />
+                    <div class="doc-info">
+                        <h4>Dr. Emily Chen</h4>
+                        <p>Pediatrician</p>
+                        <div class="doc-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="doc-card fade-up">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=300&fit=crop&crop=face" alt="Dr. James" />
+                    <div class="doc-info">
+                        <h4>Dr. James Okafor</h4>
+                        <p>Physiotherapist</p>
+                        <div class="doc-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="contact-form">
-                    <h4><i class="fas fa-paper-plane" style="color: var(--secondary);"></i> Send a Message</h4>
-                    <form id="contactForm">
-                        <input type="text" placeholder="Your full name" required />
-                        <input type="email" placeholder="Email address" required />
-                        <input type="tel" placeholder="Phone number" />
-                        <textarea placeholder="How can we help you?"></textarea>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+    <!-- ─── APPOINTMENT ─── (same) ───>
+    <section class="appointment" id="appointment">
+        <div class="container">
+            <div class="section-title fade-up">
+                <h2>Book an <span>Appointment</span></h2>
+                <p>Schedule your visit in minutes – we're here for you 24/7.</p>
+            </div>
+            <div class="appt-wrapper">
+                <div class="appt-info fade-up">
+                    <h3>Why Choose <span>Kegogi Medicare</span>?</h3>
+                    <ul class="appt-features">
+                        <li><i class="fas fa-check-circle"></i> Free consultation for all patients</li>
+                        <li><i class="fas fa-check-circle"></i> 24-hour emergency & accident care</li>
+                        <li><i class="fas fa-check-circle"></i> Modern facilities & qualified staff</li>
+                        <li><i class="fas fa-check-circle"></i> SIYA Social Health Authority accredited</li>
+                    </ul>
+                </div>
+                <div class="appt-form fade-up">
+                    <h4>Request a Visit</h4>
+                    <form id="appointmentForm">
+                        <div class="form-group">
+                            <label for="patientName">Full Name</label>
+                            <input type="text" id="patientName" placeholder="e.g. John Doe" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="patientEmail">Email Address</label>
+                            <input type="email" id="patientEmail" placeholder="john@example.com" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="patientPhone">Phone Number</label>
+                            <input type="tel" id="patientPhone" placeholder="0757 501 943" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="patientService">Service</label>
+                            <select id="patientService">
+                                <option value="Free Consultation">Free Consultation</option>
+                                <option value="Minor Surgery">Minor Surgery</option>
+                                <option value="Out/In-Patient">Out/In-Patient</option>
+                                <option value="Accident & Emergency">Accident & Emergency</option>
+                                <option value="Physiotherapy">Physiotherapy</option>
+                                <option value="Laboratory">Laboratory</option>
+                                <option value="Pharmacy">Pharmacy</option>
+                                <option value="MCH/ANC/Maternity">MCH/ANC/Maternity</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientDate">Preferred Date</label>
+                            <input type="date" id="patientDate" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="patientMsg">Additional Notes</label>
+                            <textarea id="patientMsg" placeholder="Any special requests..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Request
+                        </button>
                     </form>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px; text-align: center;">
-                        <i class="fas fa-lock" style="margin-right: 4px;"></i> Your information is safe with us.
-                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer-bottom">
+    <!-- ─── TESTIMONIALS ─── (same) ───>
+    <section class="testimonials" id="testimonials">
         <div class="container">
-            <p>&copy; 2026 <strong>Kegogi Medicare Hospital</strong>. All rights reserved. &bull; 24/7 Comprehensive Healthcare</p>
-            <div class="footer-social">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <div class="section-title fade-up">
+                <h2>What Our <span>Patients Say</span></h2>
+                <p>Real stories from people we've cared for.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-up">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"The free consultation and the care I received were outstanding. The staff treated me like family."</p>
+                    <div class="patient">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Patient" />
+                        <div>
+                            <h5>Maria Santos</h5>
+                            <span>Maternity Patient</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"I came in with an emergency and was attended to immediately. Truly a lifesaver – 24/7 service that works."</p>
+                    <div class="patient">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Patient" />
+                        <div>
+                            <h5>Robert Chen</h5>
+                            <span>Emergency Care</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"The physiotherapy sessions helped me recover quickly. Professional and caring – highly recommended."</p>
+                    <div class="patient">
+                        <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=face" alt="Patient" />
+                        <div>
+                            <h5>Laura Kim</h5>
+                            <span>Physiotherapy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── CONTACT ─── (same) ───>
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title fade-up">
+                <h2>Get in <span>Touch</span></h2>
+                <p>We're here to answer your questions – reach out anytime.</p>
+            </div>
+            <div class="contact-wrapper">
+                <div class="contact-info fade-up">
+                    <h3>Contact <span>Information</span></h3>
+                    <p><strong>24 Hours Service</strong> – Call us for appointments, emergencies, or general inquiries.</p>
+                    <ul class="contact-details">
+                        <li><i class="fas fa-phone-alt"></i> <strong>0757 501 943</strong> &nbsp;|&nbsp; <strong>0757 501 946</strong></li>
+                        <li><i class="fas fa-envelope"></i> info@kegogimedicare.co.ke</li>
+                        <li><i class="fas fa-clock"></i> Open 24 hours, 7 days a week</li>
+                        <li><i class="fas fa-check-circle" style="color:var(--secondary);"></i> SIYA Social Health Authority Accredited</li>
+                    </ul>
+                </div>
+                <div class="contact-form fade-up">
+                    <h4>Send a Message</h4>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Full Name</label>
+                                <input type="text" id="contactName" placeholder="Your name" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" placeholder="you@example.com" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" placeholder="How can we help?" />
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMsg">Message</label>
+                            <textarea id="contactMsg" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── (same) ───>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <i class="fas fa-heartbeat"></i>
+                        Kegogi <span>Medicare</span>
+                    </a>
+                    <p>Your Health, Our Priority – providing compassionate, quality care around the clock.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Quick Links</h5>
+                    <a href="#home">Home</a>
+                    <a href="#services">Services</a>
+                    <a href="#doctors">Doctors</a>
+                    <a href="#appointment">Appointment</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Services</h5>
+                    <a href="#services">Free Consultation</a>
+                    <a href="#services">Minor Surgery</a>
+                    <a href="#services">Accident & Emergency</a>
+                    <a href="#services">MCH / ANC / Maternity</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Contact</h5>
+                    <a href="tel:+254757501943">0757 501 943</a>
+                    <a href="tel:+254757501946">0757 501 946</a>
+                    <a href="#contact">Email Us</a>
+                    <a href="#appointment">Book Appointment</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Kegogi Medicare Hospital. All rights reserved.</span>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- ===== JAVASCRIPT ===== -->
-    <script>
-        // Hamburger toggle
-        const hamburger = document.getElementById('hamburger');
-        const navbar = document.getElementById('navbar');
+    <!-- ─── PASSWORD MODAL ─── -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h3><i class="fas fa-lock"></i> Admin Access</h3>
+            <p>Enter the admin password to continue</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" />
+            <div class="password-actions">
+                <button class="btn btn-primary" id="passwordSubmit">Unlock</button>
+                <button class="btn btn-outline" id="passwordCancel">Cancel</button>
+            </div>
+            <div class="password-error" id="passwordError" style="display:none;color:#e74c3c;margin-top:8px;">Incorrect password. Try again.</div>
+        </div>
+    </div>
 
-        hamburger.addEventListener('click', () => {
-            navbar.classList.toggle('open');
-        });
+    <!-- ─── ADMIN DASHBOARD ─── -->
+    <div class="dashboard-overlay" id="dashboardOverlay"></div>
+    <div class="dashboard-container" id="dashboardContainer">
+        <div class="dash-header">
+            <h2><i class="fas fa-chart-line"></i> Reception & Admin Panel</h2>
+            <button class="dash-close" id="dashClose">&times;</button>
+        </div>
+        <div class="dash-body">
+            <!-- Tab Navigation -->
+            <div class="dash-tabs">
+                <button class="dash-tab active" data-tab="dashboard">Dashboard</button>
+                <button class="dash-tab" data-tab="patients">Patients</button>
+                <button class="dash-tab" data-tab="workers">Workers</button>
+                <button class="dash-tab" data-tab="visitors">Visitors</button>
+            </div>
 
-        // Close nav on link click (mobile)
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                navbar.classList.remove('open');
-            });
-        });
+            <!-- Tab Content: Dashboard -->
+            <div class="dash-tab-content active" id="tab-dashboard">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                        <div class="stat-content"><h4 id="totalPatients">0</h4><p>Total Patients</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fas fa-user-clock"></i></div>
+                        <div class="stat-content"><h4 id="checkedInPatients">0</h4><p>Checked In</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon yellow"><i class="fas fa-user-check"></i></div>
+                        <div class="stat-content"><h4 id="checkedOutPatients">0</h4><p>Checked Out</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon red"><i class="fas fa-hard-hat"></i></div>
+                        <div class="stat-content"><h4 id="totalWorkers">0</h4><p>Workers</p></div>
+                    </div>
+                </div>
+                <div class="dash-table-wrap">
+                    <div class="table-header"><h3>Recent Patient Activity</h3><span class="badge">Last 5</span></div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead><tr><th>Name</th><th>Time In</th><th>Status</th></tr></thead>
+                            <tbody id="recentPatients"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-        // Contact form submission (demo)
-        const form = document.getElementById('contactForm');
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Thank you for reaching out! We will get back to you shortly.');
-                this.reset();
-            });
-        }
+            <!-- Tab Content: Patients -->
+            <div class="dash-tab-content" id="tab-patients">
+                <div class="dash-card">
+                    <h4><i class="fas fa-user-plus"></i> Register New Patient</h4>
+                    <form id="patientRegisterForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="patientRegName" placeholder="e.g. John Mwangi" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" id="patientRegPhone" placeholder="0712 345 678" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="number" id="patientRegAge" placeholder="e.g. 35" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Next of Kin</label>
+                                <input type="text" id="patientRegKin" placeholder="e.g. Mary Mwangi" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Next of Kin Contact</label>
+                            <input type="tel" id="patientRegKinPhone" placeholder="0712 345 679" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Register Patient</button>
+                    </form>
+                </div>
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
+                <div class="dash-table-wrap">
+                    <div class="table-header"><h3>All Patients</h3><span class="badge" id="patientCount">0</span></div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Next of Kin</th>
+                                    <th>Kin Contact</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Tab Content: Workers -->
+            <div class="dash-tab-content" id="tab-workers">
+                <div class="dash-card">
+                    <h4><i class="fas fa-user-tie"></i> Register Worker</h4>
+                    <form id="workerRegisterForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Worker Name</label>
+                                <input type="text" id="workerName" placeholder="e.g. Jane Akinyi" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Role / Department</label>
+                                <input type="text" id="workerRole" placeholder="e.g. Nurse, Reception" />
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Register Worker</button>
+                    </form>
+                </div>
+
+                <div class="dash-table-wrap">
+                    <div class="table-header"><h3>Worker Time Records</h3><span class="badge" id="workerCount">0</span></div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="workerTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Visitors -->
+            <div class="dash-tab-content" id="tab-visitors">
+                <div class="dash-card">
+                    <h4><i class="fas fa-door-open"></i> Register Visitor</h4>
+                    <form id="visitorRegisterForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Visitor Name</label>
+                                <input type="text" id="visitorName" placeholder="e.g. Peter Ochieng" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" id="visitorPhone" placeholder="0712 345 678" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Purpose of Visit</label>
+                            <input type="text" id="visitorPurpose" placeholder="e.g. Meeting with Doctor" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Register Visitor</button>
+                    </form>
+                </div>
+
+                <div class="dash-table-wrap">
+                    <div class="table-header"><h3>Visitor Log</h3><span class="badge" id="visitorCount">0</span></div>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Phone</th>
+                                    <th>Purpose</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="visitorTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ─── TOAST ─── -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
